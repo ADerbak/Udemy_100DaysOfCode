@@ -1,0 +1,14 @@
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+
+def loop_right():
+    move()
+    turn_right()
+
+turn_left()  
+loop_right()
+loop_right()
+loop_right()
+loop_right()
