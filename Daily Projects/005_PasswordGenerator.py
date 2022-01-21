@@ -23,8 +23,22 @@ for i in range(0,nr_symbols):
 for i in range(0,nr_numbers):
     password.append(numbers[random.randint(0,len(numbers)-1)])
 
-
 print("Easy Password:","".join(password))
+
+#### How it was done on the video:
+
+password2 = ''
+
+for char in range(1, nr_letters + 1):
+    password2 += random.choice(letters)
+
+for char in range(1, nr_symbols + 1):
+    password2 += random.choice(symbols)
+
+for char in range(1, nr_numbers + 1):
+    password2 += random.choice(numbers)
+
+print(password2)
 
 #Hard Level - Order of characters randomised:
 #e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
@@ -32,3 +46,26 @@ print("Easy Password:","".join(password))
 updated_password = random.shuffle(password)
 
 print("Hard Password:","".join(password))
+
+#### How it was done on the video:
+
+password3 = []
+
+for char in range(1, nr_letters + 1):
+    password3.append(random.choice(letters))
+
+for char in range(1, nr_symbols + 1):
+    password3.append(random.choice(symbols))
+
+for char in range(1, nr_numbers + 1):
+    password3.append(random.choice(numbers))
+
+print(password3)
+random.shuffle(password3)
+print(password3)
+
+password4 = ""
+for char in password3:
+    password4 += char
+
+print(password4)
