@@ -11,7 +11,7 @@ tim.color('cyan')
 #     tim.left(90)
 
 #Challenge 2 - Draw a dashed line
-for i in range(10):
+for i in range(15):
     tim.pendown()
     tim.forward(5)
     tim.penup()
