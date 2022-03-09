@@ -55,7 +55,7 @@ screen.tracer(0)
 
 while game:
     screen.update()
-    time.sleep(1)
+    time.sleep(0.1)
     for i in range(len(snake_parts)-1, 0, -1):
         if i > 0:
             x_cor = snake_parts[i - 1].xcor()
