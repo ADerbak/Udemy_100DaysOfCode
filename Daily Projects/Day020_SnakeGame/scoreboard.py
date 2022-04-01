@@ -1,7 +1,8 @@
 from shutil import move
 from turtle import Turtle
 
-SCORE = 0
+ALIGN = 'center'
+FONT = ('Arial',25,'normal')
 
 class Scoreboard(Turtle):
     
@@ -13,13 +14,12 @@ class Scoreboard(Turtle):
     
     def scoreboard(self):
         self.score
-        self.font = ('Arial',25,'normal')
         self.color('white')
         self.goto(0, 250)
         self.write(arg = f"Score = {self.score}"
                 , move=True
-                , align='center'
-                , font = self.font )
+                , align= ALIGN
+                , font = FONT )
     
     def update_score(self):
         self.clear()
