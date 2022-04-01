@@ -1,5 +1,7 @@
 from turtle import Screen, Turtle
 import time
+import snake
+
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor('black')
@@ -30,19 +32,6 @@ for i in range(snake_counter):
     snake_parts[i].color('white')
 
 
-# snake_head = Turtle('square')
-# snake_head.penup()
-# snake_head.color('white')
-# snake_body1 = Turtle('square')
-# snake_body1.penup()
-# snake_body1.color('white')
-# snake_body2 = Turtle('square')
-# snake_body2.penup()
-# snake_body2.color('white')
-
-# snake_parts[1].goto(snake_parts[0].xcor()-20, snake_parts[0].ycor())
-# snake_parts[2].goto(snake_parts[1].xcor()-20, snake_parts[1].ycor())
-
 for i in range(0, len(snake_parts)):
     if i == 0:
         pass
@@ -65,21 +54,11 @@ while game:
             pass
     snake_parts[0].forward(20)
 
-    #snake_parts[0].left(90)
-
-    #snake_parts[0].forward(20)
-
-
-
 
     screen.listen()
-    # screen.onkey(key="w", fun=move_forwards)
-    # screen.onkey(key="s", fun=move_backwards)
     screen.onkey(key="d", fun=rotate_right)
     screen.onkey(key="a", fun=rotate_left)
 
-
-    # screen.exitonclick()
 
 
 
