@@ -16,14 +16,7 @@ screen.onkey(snake.down,'Down')
 screen.onkey(snake.left,'Left')
 screen.onkey(snake.right, 'Right')
 
-# for i in range(0, len(snake_parts)):
-#     if i == 0:
-#         pass
-#     else:
-#         snake_parts[i].goto(snake_parts[i - 1].xcor() - 20, snake_parts[i - 1].ycor())
-
 game = True
-
 
 
 while game:
