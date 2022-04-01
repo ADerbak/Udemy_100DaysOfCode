@@ -27,6 +27,11 @@ while game:
     time.sleep(0.1)
     snake.move()
 
+    # Determine collision with food
+    if snake.head.distance(food) <= 15:
+        print("nom nom nom")
+        food.refresh()
+        
 
 
 screen.exitonclick()
