@@ -30,7 +30,7 @@ game_is_on = True
 
 while game_is_on:
     time.sleep(0.1)
-    while (ball.xcor()<350 and ball.xcor() >-350) and (ball.ycor()<500 and ball.ycor()>-500):
+    while (ball.xcor()<400 and ball.xcor() >-400):
         screen.update()
         ball.move()
         screen.update()

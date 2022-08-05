@@ -9,9 +9,17 @@ class Ball(Turtle):
         self.penup()
         self.shape('circle')
         self.color('white')
-        
+        self.up = 1
         
     def move(self):
+        
+        # Make the ball continue upward or downward until it reaches an edge
+        if self.ycor() == 300:
+            self.up = -1
+        elif self.ycor() == -300:
+            self.up = 1
+        
+            
+        new_y = self.ycor() + (10 * self.up)
         new_x = self.xcor() + 10
-        new_y = self.ycor() + 10
         self.goto(new_x, new_y)
