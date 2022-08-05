@@ -1,5 +1,7 @@
-from turtle import Screen, Turtle
+from turtle import Screen, Turtle, ycor
 from paddle import Paddle
+from ball import Ball
+import time
 
 
 
@@ -12,6 +14,7 @@ screen.tracer(0)
 r_paddle = Paddle((350,0))
 l_paddle = Paddle((-350,0))
 
+ball = Ball()
 
 screen.listen()
 screen.onkey(r_paddle.go_up, "Up")
@@ -19,10 +22,19 @@ screen.onkey(r_paddle.go_down, "Down")
 screen.onkey(l_paddle.go_up, "w")
 screen.onkey(l_paddle.go_down, "s")
 
+
+
+# x,y = 0,0
+
 game_is_on = True
 
 while game_is_on:
+    while (ball.xcor()<350 and ball.xcor() >-350) and (ball.ycor()<500 and ball.ycor()>-500):
+        screen.update()
+        time.sleep(0.075)
+        ball.goto(ball.xcor()+20, ball.ycor()+20)
+        screen.update()
     screen.update()
-
+    
 
 screen.exitonclick()
