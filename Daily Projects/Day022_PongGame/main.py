@@ -34,7 +34,7 @@ game_is_on = True
 
 while game_is_on:
     
-    time.sleep(0.05)
+    time.sleep(ball.move_speed)
     screen.update()
     ball.move()
     
@@ -44,6 +44,7 @@ while game_is_on:
     # Determine if ball hits a paddle
     if (ball.distance(r_paddle) < 50 and ball.xcor() > 320) or (ball.distance(l_paddle) < 50 and ball.xcor() < -320):
         ball.x_direction *= -1
+        ball.move_speed *= 0.9
             
        
     if ball.xcor() > 380: 

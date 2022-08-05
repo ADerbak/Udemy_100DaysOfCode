@@ -11,6 +11,7 @@ class Ball(Turtle):
         self.color('white')
         self.y_direction = 1
         self.x_direction = 1
+        self.move_speed = 0.05
         
     def move(self):
         
@@ -19,13 +20,14 @@ class Ball(Turtle):
             self.y_direction = -1
         elif self.ycor() == -300:
             self.y_direction = 1
-        
             
-        new_y = self.ycor() + (10 * self.y_direction)
-                      
+                    
+        new_y = self.ycor() + (10 * self.y_direction)            
         new_x = self.xcor() + (5 * self.x_direction)
         self.goto(new_x, new_y)
         
     def reset_position(self):
         self.goto(0,0)
         self.x_direction *= -1
+        self.move_speed = 0.05
+        
