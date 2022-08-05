@@ -41,8 +41,11 @@ while game_is_on:
         ball.x_direction *= -1
             
        
-    
-    
+    if ball.xcor() > 380: 
+        ball.reset_position()
+        
+    if ball.xcor() < - 380:
+        ball.reset_position()
     
 
 screen.exitonclick()
