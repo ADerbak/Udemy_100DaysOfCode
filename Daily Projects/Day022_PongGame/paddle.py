@@ -1,10 +1,10 @@
 from turtle import Turtle
 
-class Paddle:
+class Paddle(Turtle): # Inherit everything from Turtle class
     
     def __init__(self, coord):
+        super().__init__()  # Actually inherit the Turtle Class
         x, y = coord
-        self = Turtle()
         self.penup()
         self.shape("square")
         self.color("white")
