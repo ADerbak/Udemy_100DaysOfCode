@@ -29,10 +29,10 @@ screen.onkey(l_paddle.go_down, "s")
 game_is_on = True
 
 while game_is_on:
+    time.sleep(0.1)
     while (ball.xcor()<350 and ball.xcor() >-350) and (ball.ycor()<500 and ball.ycor()>-500):
         screen.update()
-        time.sleep(0.075)
-        ball.goto(ball.xcor()+20, ball.ycor()+20)
+        ball.move()
         screen.update()
     screen.update()
     
