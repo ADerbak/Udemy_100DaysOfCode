@@ -11,7 +11,6 @@ screen.bgcolor("white")
 
 player = Player()
 car_manager = CarManager()
-# car_manager.generate_car()
 scoreboard = Scoreboard()
 
 screen.listen()
@@ -24,13 +23,12 @@ while game_is_on:
     screen.update()
     car_manager.create_car()
     car_manager.move_car()
-    # car_manager.generate_car()
-    # car_manager.move_car()
     
+    # Detect when player reaches end. Update level and car speed.
     if player.ycor() == player.end:
         player.reset_position()
         car_manager.level += 1
-        scoreboard.level += 1
+        scoreboard.increase_level()
     
     # Detect collision with self
     for car in car_manager.all_cars:
