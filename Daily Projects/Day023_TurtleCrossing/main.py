@@ -12,6 +12,7 @@ screen.bgcolor("white")
 player = Player()
 car_manager = CarManager()
 # car_manager.generate_car()
+scoreboard = Scoreboard()
 
 screen.listen()
 screen.onkey(player.go_up, "Up")
@@ -28,6 +29,7 @@ while game_is_on:
     
     if player.ycor() == player.end:
         player.reset_position()
+        car_manager.level += 1
     
     # Detect collision with self
     for car in car_manager.all_cars:
