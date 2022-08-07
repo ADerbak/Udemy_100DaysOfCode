@@ -26,7 +26,7 @@ class CarManager(Turtle):
         
     def move_car(self):  
         for car in self.all_cars:
-            car.backward(MOVE_INCREMENT)
+            car.backward(STARTING_MOVE_DISTANCE + (MOVE_INCREMENT*self.level))
         
     # def generate_car(self,number_of_cars):
     #     self.penup()
