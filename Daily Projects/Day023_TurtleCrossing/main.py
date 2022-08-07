@@ -11,7 +11,7 @@ screen.bgcolor("white")
 
 player = Player()
 car_manager = CarManager()
-car_manager.generate_car()
+# car_manager.generate_car()
 
 screen.listen()
 screen.onkey(player.go_up, "Up")
@@ -21,8 +21,10 @@ game_is_on = True
 while game_is_on:
     time.sleep(0.1)
     screen.update()
-    car_manager.generate_car()
+    car_manager.create_car()
     car_manager.move_car()
+    # car_manager.generate_car()
+    # car_manager.move_car()
     
     if player.ycor() == player.end:
         player.reset_position()

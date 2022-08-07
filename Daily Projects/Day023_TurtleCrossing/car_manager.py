@@ -16,24 +16,32 @@ class CarManager(Turtle):
     
     def __init__(self):
         super().__init__()
-        self.generate_car(self.number_of_cars)
+        self.hideturtle()
+        # self.generate_car(self.number_of_cars)
         self.level = 0
-        self.cars = []
-        self.number_of_cars = 20
+        self.all_cars = []
+        
+        # self.number_of_cars = 20
         
         
-    def move_car(self):             
-        self.goto(self.xcor()+(STARTING_MOVE_DISTANCE+MOVE_INCREMENT*self.level), self.ycor())
+    def move_car(self):  
+        for car in self.all_cars:
+            car.backward(MOVE_INCREMENT)
         
-    def generate_car(self,number_of_cars):
-        self.penup()
-        self.shape("square")
-        self.color(COLORS[random.randint(0,5)])
-        self.shapesize(stretch_len=2, stretch_wid=1)
-        self.goto(random.randint(-250,250), 400)
-        self.cars = self.segments.append(number_of_cars)
+    # def generate_car(self,number_of_cars):
+    #     self.penup()
+    #     self.shape("square")
+    #     self.color(COLORS[random.randint(0,5)])
+    #     self.shapesize(stretch_len=2, stretch_wid=1)
+    #     self.goto(random.randint(-250,250), 400)
+    #     self.cars = self.segments.append(number_of_cars)
     
     def create_car(self):
-        for i in self.number_of_cars:
-            self.generate_car(i)
+        new_car = Turtle()
+        new_car.penup()
+        new_car.shape('square')
+        new_car.shapesize(stretch_len=2, stretch_wid=1)
+        new_car.color(COLORS[random.randint(0,5)])
+        new_car.goto(300,random.randint(-250,250))
+        self.all_cars.append(new_car)
         
