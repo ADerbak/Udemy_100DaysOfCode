@@ -37,11 +37,14 @@ class CarManager(Turtle):
     #     self.cars = self.segments.append(number_of_cars)
     
     def create_car(self):
-        new_car = Turtle()
-        new_car.penup()
-        new_car.shape('square')
-        new_car.shapesize(stretch_len=2, stretch_wid=1)
-        new_car.color(COLORS[random.randint(0,5)])
-        new_car.goto(300,random.randint(-250,250))
-        self.all_cars.append(new_car)
+        # Create a random car with a 1 in 6 chance.
+        random_chance = random.randint(1,6)
+        if random_chance == 1:
+            new_car = Turtle()
+            new_car.penup()
+            new_car.shape('square')
+            new_car.shapesize(stretch_len=2, stretch_wid=1)
+            new_car.color(COLORS[random.randint(0,5)])
+            new_car.goto(300,random.randint(-200,200))
+            self.all_cars.append(new_car)
         
