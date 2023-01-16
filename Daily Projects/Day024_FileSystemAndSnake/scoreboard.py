@@ -3,6 +3,9 @@ from turtle import Turtle
 
 ALIGN = 'center'
 FONT = ('Arial',25,'normal')
+FILEPATH = './Daily Projects/Day024_FileSystemAndSnake/data.txt'
+with open(FILEPATH) as file:
+    HIGHSCORE = int(file.read())
 
 class Scoreboard(Turtle):
     
@@ -14,7 +17,7 @@ class Scoreboard(Turtle):
     
     def scoreboard(self):
         self.score
-        self.high_score = 0
+        self.high_score = HIGHSCORE
         self.color('white')
         self.goto(0, 250)
         self.update_scoreboard()
@@ -35,6 +38,8 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
+            with open(FILEPATH,mode = 'w') as file:
+                file.write(str(self.score))
         self.score = 0
         self.update_scoreboard()
         
