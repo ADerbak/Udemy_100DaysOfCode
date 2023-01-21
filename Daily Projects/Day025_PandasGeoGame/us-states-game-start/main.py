@@ -15,6 +15,7 @@ turtle.shape(image)
 # Read in Pandas file
 df = pd.read_csv('50_states.csv')
 states = df.state.values
+states = states
 print(states)
 
 
@@ -22,15 +23,30 @@ print(states)
 writer = turtle.Turtle()
 writer.hideturtle()
 answers = []
-
+states_to_learn = []
 game = True
 
-game_time = 300
+game_time = 60
 start_time = time.time()
 
 while(game):
     time.sleep(1)
+
     time_taken = time.time() - start_time
+    
+    
+    # Game Win
+    if len(answers) == len(states):
+        screen.textinput("Congratulations! You won!","") 
+        break 
+        
+    if time.time() - start_time > game_time: 
+        screen.textinput(f"Time Up! final score: {int(round(len(answers)/50))*100}%","")
+        states_to_learn = set(states).difference(answers)
+        states_to_learn = pd.DataFrame(states_to_learn,columns=['State']).sort_values(by='State').reset_index(drop=True)
+        states_to_learn.to_csv("States to learn.csv",index = 'False')
+        break
+
     
     writer.penup()
     # Get Answers from input
@@ -50,19 +66,11 @@ while(game):
         writer.penup()
         print(answer_state)
     
-    # Game Win
-    if len(answers) == len(states):
-        screen.title("Congratulations! You won!")
-        time.sleep(10)
-        screen.bye()    
-        
-    if time.time() - start_time > game_time: 
-        screen.title(f"Time Up! final score: {int(round(len(answers)/50))*100}%")
-        break
+    screen.update()
 
 
 
 
-turtle.exitonclick()
+# turtle.exitonclick()
 
 
