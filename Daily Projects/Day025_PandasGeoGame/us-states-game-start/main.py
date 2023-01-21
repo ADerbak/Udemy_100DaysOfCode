@@ -1,5 +1,6 @@
 import turtle
 import pandas as pd
+import time
 
 
 # Set up Screen
@@ -24,10 +25,18 @@ answers = []
 
 game = True
 
+game_time = 300
+start_time = time.time()
+
 while(game):
+    time.sleep(1)
+    time_taken = time.time() - start_time
+    
     writer.penup()
     # Get Answers from input
-    answer_state = screen.textinput(title=f"{len(answers)}/50 Guess the state",prompt="What's another state's name?").title()
+    
+    
+    answer_state = screen.textinput(title=f"{len(answers)}/50 Guess the state! Time Left: {int(round(game_time - time_taken,0))}",prompt="What's another state's name?").title()
     print (answer_state in states) 
     if answer_state in states and answer_state not in answers:
         answers.append(answer_state)
@@ -40,6 +49,16 @@ while(game):
         writer.write(answer_state, move=True)
         writer.penup()
         print(answer_state)
+    
+    # Game Win
+    if len(answers) == len(states):
+        screen.title("Congratulations! You won!")
+        time.sleep(10)
+        screen.bye()    
+        
+    if time.time() - start_time > game_time: 
+        screen.title(f"Time Up! final score: {int(round(len(answers)/50))*100}%")
+        break
 
 
 
