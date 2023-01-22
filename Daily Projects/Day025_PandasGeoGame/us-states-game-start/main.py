@@ -2,7 +2,6 @@ import turtle
 import pandas as pd
 import time
 
-
 # Set up Screen
 screen = turtle.Screen()
 screen.title('U.S. States Game')
@@ -15,9 +14,6 @@ turtle.shape(image)
 # Read in Pandas file
 df = pd.read_csv('50_states.csv')
 states = df.state.values
-states = states
-print(states)
-
 
 # Make a new Writer
 writer = turtle.Turtle()
@@ -30,10 +26,9 @@ game_time = 60
 start_time = time.time()
 
 while(game):
-    time.sleep(1)
-
-    time_taken = time.time() - start_time
     
+    time.sleep(1)
+    time_taken = time.time() - start_time
     
     # Game Win
     if len(answers) == len(states):
@@ -49,9 +44,8 @@ while(game):
 
     
     writer.penup()
-    # Get Answers from input
     
-    
+    # Get Answers from input  
     answer_state = screen.textinput(title=f"{len(answers)}/50 Guess the state! Time Left: {int(round(game_time - time_taken,0))}",prompt="What's another state's name?").title()
     print (answer_state in states) 
     if answer_state in states and answer_state not in answers:
@@ -67,10 +61,3 @@ while(game):
         print(answer_state)
     
     screen.update()
-
-
-
-
-# turtle.exitonclick()
-
-
