@@ -13,22 +13,26 @@ LONG_BREAK_MIN = 20
 def finish_click():
     global counter
     counter = 0
-    print(counter)
+    count_down(0)
+    # print(counter)
     checkmark_label.config(text=checkmark*counter)
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 def start_click():
     # update timer
-    count_down(5)
+    count_down(65)
     
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 def count_down(count):
-    print(count)
+    
+    time = str(int(count/60)).zfill(2) +":"+str(count%60).zfill(2)
+    
+    
     if count >= 0:
-        canvas.itemconfig(timer_text, text=count)
+        canvas.itemconfig(timer_text, text=time)
         window.after(1000, count_down, count - 1)
     else:
         global counter
