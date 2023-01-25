@@ -28,8 +28,8 @@ my_button2 = Button()
 def button_clicked():
     my_label.config(text='Button2!')
 
-my_button.config(text = 'Click Me, too', command=button_clicked)
-my_button.grid(column=3,row=1)
+my_button2.config(text = 'Click Me, too', command=button_clicked)
+my_button2.grid(column=3,row=1)
 
 
 # Create a text entry
@@ -39,7 +39,7 @@ def return_entry(en):
 
 input = Entry(window, width=10)
 
-input.grid(column=3,row=3)
+input.grid(column=4,row=3)
 # name = ''
 # input.config(textvariable= name)
 # print(input.get())
