@@ -10,7 +10,7 @@ SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER RESET ------------------------------- # 
-def finish_click():
+def reset_click():
     global counter
     counter = 0
     count_down(0)
@@ -68,17 +68,11 @@ canvas.pack()
 
 
 # Create buttons
-
-
-    
-
-    
-
 start_button = Button(text='Start',bg=YELLOW, font=(FONT_NAME), command=start_click, highlightthickness=0)
 start_button.place(x=-60, y=260)
 
-finish_button = Button(text='Finish',bg=YELLOW, font=(FONT_NAME), command=finish_click, highlightthickness=0)
-finish_button.place(x=175, y= 260)
+reset_button = Button(text='Reset',bg=YELLOW, font=(FONT_NAME), command=reset_click, highlightthickness=0)
+reset_button.place(x=175, y= 260)
 
 
 
