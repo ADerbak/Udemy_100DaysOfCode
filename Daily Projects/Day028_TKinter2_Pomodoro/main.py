@@ -5,23 +5,44 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
-LONG_BREAK_MIN = 20
+WORK_MIN = 5
+SHORT_BREAK_MIN = 2
+LONG_BREAK_MIN = 4
+reps = 0
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset_click():
-    global counter
-    counter = 0
-    count_down(0)
-    # print(counter)
-    checkmark_label.config(text=checkmark*counter)
+    global reps
+    reps = 0
+    canvas.itemconfig(timer_text, text="00:00")
+    # print(reps)
+    checkmark_label.config(text="")
+    label.config(text = 'Timer', fg=GREEN, bg=YELLOW, font = (FONT_NAME, 35,'bold'))
+    
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 def start_click():
     # update timer
-    count_down(65)
+    global reps
+    reps += 1
+    if reps % 2 == 1:
+        count_down(WORK_MIN)
+        label.config(text = 'Work', fg=GREEN, bg=YELLOW, font = (FONT_NAME, 35,'bold'))
+        
+        
+    elif reps == 8:
+        count_down(LONG_BREAK_MIN)
+        reps = 0
+        label.config(text = 'Long Break', fg=RED, bg=YELLOW, font = (FONT_NAME, 35,'bold'))
+        
+    else:
+        label.config(text = 'Break', fg=PINK, bg=YELLOW, font = (FONT_NAME, 35,'bold'))
+        count_down(SHORT_BREAK_MIN)
+        counter = int(reps / 2)
+        checkmark_label.config(text=checkmark*counter)
+        
+    
     
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
@@ -30,14 +51,11 @@ def count_down(count):
     
     time = str(int(count/60)).zfill(2) +":"+str(count%60).zfill(2)
     
-    
-    if count >= 0:
+    if count > -1:
         canvas.itemconfig(timer_text, text=time)
         window.after(1000, count_down, count - 1)
     else:
-        global counter
-        counter += 1
-        checkmark_label.config(text=checkmark*counter)
+        start_click()
         
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -53,8 +71,7 @@ label.pack()
 
 
 checkmark = '√'
-counter = 0
-checkmark_label = Label(text=checkmark*counter, fg=GREEN,bg=YELLOW, font=(FONT_NAME,18))
+checkmark_label = Label(text=checkmark*reps, fg=GREEN,bg=YELLOW, font=(FONT_NAME,18))
 checkmark_label.place(x=80, y=275)
 
 # Create Canvas
