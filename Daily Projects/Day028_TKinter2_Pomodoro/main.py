@@ -9,13 +9,15 @@ WORK_MIN = 5
 SHORT_BREAK_MIN = 2
 LONG_BREAK_MIN = 4
 reps = 0
-
+timer = None
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset_click():
+    global timer
+    window.after_cancel(timer)
+    
     global reps
     reps = 0
     canvas.itemconfig(timer_text, text="00:00")
-    # print(reps)
     checkmark_label.config(text="")
     label.config(text = 'Timer', fg=GREEN, bg=YELLOW, font = (FONT_NAME, 35,'bold'))
     
@@ -52,8 +54,9 @@ def count_down(count):
     time = str(int(count/60)).zfill(2) +":"+str(count%60).zfill(2)
     
     if count > -1:
+        global timer
         canvas.itemconfig(timer_text, text=time)
-        window.after(1000, count_down, count - 1)
+        timer = window.after(1000, count_down, count - 1)
     else:
         start_click()
         
