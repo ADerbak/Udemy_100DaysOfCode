@@ -9,6 +9,12 @@ def generate_password():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
     print('Saved')
+    f = open('password_list.txt','a')
+    f.write(website_text.get() + " | " + email_text.get() + " | " + password_text.get())
+    website_text.delete(0, END)
+    email_text.delete(0, END)
+    email_text.insert(0,'andrewderbak@gmail.com')
+    password_text.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
