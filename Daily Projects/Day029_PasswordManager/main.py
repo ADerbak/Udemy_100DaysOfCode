@@ -16,14 +16,15 @@ def save_password():
 window = Tk()
 window.title('Password Manager')
 # window.maxsize(width=500, height=200)
-window.config(padx=20, pady=20, bg='white')
+window.config(padx=50, pady=50, bg='white')
 
 canvas = Canvas(width=200, height=200, highlightthickness=0)
 # Fix for reading in image.
-image = PIL.Image.open('logo.png')
-logo = PIL.ImageTk.PhotoImage(image)
+# image = PIL.Image.open('logo.png')
+# logo = PIL.ImageTk.PhotoImage(image)
+logo = PhotoImage(file = "unlock_animaiton-97042947.gif")
 
-canvas.create_image(50, 50, image=logo)
+canvas.create_image(100, 100, image=logo)
 canvas.grid(row=0, column=1)
 
 # Create labels
@@ -37,13 +38,15 @@ password_label = Label(text='Password:')
 password_label.grid(row=3, column=0)
 
 # Create Text
-website_text = Text(width=35, height=10)
+website_text = Entry(width=35)
 website_text.grid(row=1, column=1, columnspan=2)
+website_text.focus()
 
-email_text = Text(width=35, height=10)
+email_text = Entry(width=35)
 email_text.grid(row=2, column=1, columnspan=2)
+email_text.insert(0,'andrewderbak@gmail.com') #Set cursor to end
 
-password_text = Text(width=21, height=10)
+password_text = Entry(width=21)
 password_text.grid(row=3, column=1)
 
 # Create Buttons
@@ -51,7 +54,7 @@ password_text.grid(row=3, column=1)
 generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(row=3, column=2)
 
-add_button = Button(text='Add', command=save_password)
+add_button = Button(text='Add', width=36, command=save_password)
 add_button.grid(row=4, column=1, columnspan=2)
 
 window.mainloop()
