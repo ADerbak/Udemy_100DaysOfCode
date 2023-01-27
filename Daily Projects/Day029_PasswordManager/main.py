@@ -10,7 +10,7 @@ def generate_password():
 def save_password():
     print('Saved')
     f = open('password_list.txt','a')
-    f.write(website_text.get() + " | " + email_text.get() + " | " + password_text.get())
+    f.write(website_text.get() + " | " + email_text.get() + " | " + password_text.get()+"\n")
     f.close()
     website_text.delete(0, END)
     email_text.delete(0, END)
