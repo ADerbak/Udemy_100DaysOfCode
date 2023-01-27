@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import PIL.Image
 import PIL.ImageTk
 
@@ -9,13 +10,28 @@ def generate_password():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
     print('Saved')
-    f = open('password_list.txt','a')
-    f.write(website_text.get() + " | " + email_text.get() + " | " + password_text.get()+"\n")
-    f.close()
-    website_text.delete(0, END)
-    email_text.delete(0, END)
-    email_text.insert(0,'andrewderbak@gmail.com')
-    password_text.delete(0, END)
+    
+    website = website_text.get()
+    email = website_text.get()
+    password = password_text.get()
+    
+    if len(website) == 0 or len(email) == 0 or len(password) == 0:
+        messagebox.showwarning(message='Please fill out all fields!')
+    else:
+        is_okay = messagebox.askokcancel(title=website, 
+                            message=f"These are the details enteerd:\n " \
+                            f"Email: {email} \n " \
+                            f"Password: {password}\n " \
+                            f"Is it okay to save?")
+        if is_okay:
+            f = open('password_list.txt','a')
+            f.write(website+ " | " + email + " | " + password+"\n")
+            f.close()
+            website_text.delete(0, END)
+            email_text.delete(0, END)
+            email_text.insert(0,'andrewderbak@gmail.com')
+            password_text.delete(0, END)
+        
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -63,5 +79,6 @@ generate_password_button.grid(row=3, column=2)
 
 add_button = Button(text='Add', width=36, command=save_password)
 add_button.grid(row=4, column=1, columnspan=2)
+
 
 window.mainloop()
