@@ -2,10 +2,15 @@ from tkinter import *
 from tkinter import messagebox
 import PIL.Image
 import PIL.ImageTk
+from passwordgenerator import password_generator
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
-    print('Ok')
+    password = password_generator()
+    password_text.delete(0, END)
+    password_text.insert(0, password)
+    window.clipboard_append(password)
+    
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
