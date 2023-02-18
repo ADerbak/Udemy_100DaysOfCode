@@ -55,7 +55,7 @@ def search_password():
         else:
             messagebox.showinfo(title = text, message= "No details for the website exists")
     except FileNotFoundError:
-        print("No data file found!")
+        messagebox.showinfo(title="Error", message="No data file found!")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
