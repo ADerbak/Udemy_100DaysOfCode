@@ -3,6 +3,7 @@ from tkinter import messagebox
 import PIL.Image
 import PIL.ImageTk
 from passwordgenerator import password_generator
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
@@ -19,19 +20,17 @@ def save_password():
     website = website_text.get()
     email = website_text.get()
     password = password_text.get()
-    
+    new_data = {website:{
+        "email": email,
+        "password": password
+        }
+    }
+
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showwarning(message='Please fill out all fields!')
     else:
-        is_okay = messagebox.askokcancel(title=website, 
-                            message=f"These are the details enteerd:\n " \
-                            f"Email: {email} \n " \
-                            f"Password: {password}\n " \
-                            f"Is it okay to save?")
-        if is_okay:
-            f = open('password_list.txt','a')
-            f.write(website+ " | " + email + " | " + password+"\n")
-            f.close()
+        with open('password_list.json','w') as f:
+            json.dump(new_data, f)
             website_text.delete(0, END)
             email_text.delete(0, END)
             email_text.insert(0,'andrewderbak@gmail.com')
