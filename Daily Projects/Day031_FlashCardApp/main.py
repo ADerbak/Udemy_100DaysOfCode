@@ -35,7 +35,7 @@ canvas = Canvas(width=800, height=526, highlightthickness=0, background=BACKGROU
 card_front = PhotoImage(file='./images/card_front.png')
 canvas.create_image(400,275 , image=card_front)
 canvas.create_text((400,150), text="French" ,  font= ("Ariel",40,'italic'), justify='center') #"italic"))#, __coords=(400,150))
-canvas.create_text((400,263),text="French" ,  font= ("Ariel",60, 'bold'), justify='center') #60, "italic"))#, __coords=(400,263))
+canvas.create_text((400,263),text="trouve" ,  font= ("Ariel",60, 'bold'), justify='center') #60, "italic"))#, __coords=(400,263))
 canvas.grid(row=0, column=0, columnspan=2 )
 
 # canvas.grid(row=0, column=0, columnspan=2, rowspan=3)
@@ -54,13 +54,15 @@ canvas.grid(row=0, column=0, columnspan=2 )
 
 # ------------------- Buttons ----------------- #
 
-cross_image = PhotoImage('./images/wrong.png')
-cross_button = Button(image=cross_image, bg=BACKGROUND_COLOR,highlightthickness=0, height=100, width=100,pady=50)
+cross_image = PhotoImage(file = './images/wrong.png')
+cross_button = Button(image=cross_image, bg=BACKGROUND_COLOR,highlightthickness=0, pady=50, border=0)
+# cross_button.image = cross_image
 cross_button.grid(row=1, column=0)
 # cross_button.place(x=100, y=500)
 
-check_image = PhotoImage('./images/right.png')
-check_button = Button( image=check_image, bg=BACKGROUND_COLOR, highlightthickness=0, height=100, width=100, pady=50)
+check_image = PhotoImage(file = './images/right.png')
+check_button = Button( image=check_image, bg=BACKGROUND_COLOR, highlightthickness=0, pady=50, bd=0)
+# check_button.image = check_image
 check_button.grid(row=1, column=1)
 # cross_button.place(x=700, y=500)
 
