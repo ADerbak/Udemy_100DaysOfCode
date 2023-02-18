@@ -29,8 +29,16 @@ def save_password():
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showwarning(message='Please fill out all fields!')
     else:
-        with open('password_list.json','w') as f:
-            json.dump(new_data, f)
+        try:
+            with open('password_list.json', 'r') as f:
+                data = json.load(f)
+                data.update(new_data)
+            with open('password_list.json','w') as f:
+                json.dump(data, f, indent = 4)
+        except:
+            with open('password_list.json','w') as f:
+                json.dump(new_data, f, indent = 4)
+        finally:
             website_text.delete(0, END)
             email_text.delete(0, END)
             email_text.insert(0,'andrewderbak@gmail.com')
