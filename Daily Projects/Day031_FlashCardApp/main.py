@@ -9,21 +9,20 @@ BACKGROUND_COLOR = "#B1DDC6"
 df = pd.read_csv('./data/french_words.csv')
 df = df.to_dict(orient="records")
 # french_word = df['French'][random.randint(0,len(df))]
-french_word = df[random.randint(0,len(df))]['French']
-
+# word = df[random.randint(0,len(df))]['French']
+current_card = random.choice(df)
+language = "French"
 
 # ------------------- Yes/No Functions ----------------- #
 
-def wrong_click():
-    french_word = df[random.randint(0,len(df))]['French']
+def next_card():
+    # word = df[random.randint(0,len(df))]['French']
+    current_card = random.choice(df)
     # window.update()
-    canvas.itemconfigure(p, text=french_word)
+    canvas.itemconfig(card_title, text= language)
+    canvas.itemconfigure(card_word, text=current_card[language])
 
 
-def correct_click():
-    french_word = df[random.randint(0,len(df))]['French']
-    # window.update()
-    canvas.itemconfigure(p, text=french_word)
 
 # ------------------- New Word Functions ----------------- #
 
@@ -44,9 +43,9 @@ canvas = Canvas(width=800, height=526, highlightthickness=0, background=BACKGROU
 # logo = PIL.ImageTk.PhotoImage(image)
 card_front = PhotoImage(file='./images/card_front.png')
 canvas.create_image(400,275 , image=card_front)
-canvas.create_text((400,150), text="French" ,  font= ("Ariel",40,'italic'), justify='center') #"italic"))#, __coords=(400,150))
-p = canvas.create_text((400,263),text=french_word ,  font= ("Ariel",60, 'bold'), justify='center') #60, "italic"))#, __coords=(400,263))
-canvas.itemconfigure(p, text=french_word)
+card_title = canvas.create_text((400,150), text="" ,  font= ("Ariel",40,'italic'), justify='center') #"italic"))#, __coords=(400,150))
+card_word = canvas.create_text((400,263),text="" ,  font= ("Ariel",60, 'bold'), justify='center') #60, "italic"))#, __coords=(400,263))
+
 canvas.grid(row=0, column=0, columnspan=2 )
 
 # canvas.grid(row=0, column=0, columnspan=2, rowspan=3)
@@ -71,7 +70,7 @@ cross_button = Button(image=cross_image
                       , highlightthickness=0
                       , pady=50
                       , bd=0
-                      , command=wrong_click)
+                      , command=next_card)
 # cross_button.image = cross_image
 cross_button.grid(row=1, column=0)
 # cross_button.place(x=100, y=500)
@@ -82,10 +81,11 @@ check_button = Button( image=check_image
                       , highlightthickness=0
                       , pady=50
                       , bd=0
-                      , command= correct_click)
+                      , command= next_card)
 # check_button.image = check_image
 check_button.grid(row=1, column=1)
 # cross_button.place(x=700, y=500)
 
+next_card()
 
 mainloop()
