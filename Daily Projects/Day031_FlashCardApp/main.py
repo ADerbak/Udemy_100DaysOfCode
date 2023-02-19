@@ -7,10 +7,14 @@ import time
 
 BACKGROUND_COLOR = "#B1DDC6"
 
-df = pd.read_csv('./data/french_words.csv')
-df = df.to_dict(orient="records")
-# french_word = df['French'][random.randint(0,len(df))]
-# word = df[random.randint(0,len(df))]['French']
+try:
+    to_learn = pd.read_csv('words_to_learn.csv')
+except FileNotFoundError:
+    to_learn = pd.read_csv('./data/french_words.csv')
+finally:
+    df = to_learn.to_dict(orient="records")
+
+
 current_card = {}
 language = "French"
 
@@ -29,6 +33,7 @@ def next_card():
     timer = window.after(3000, func=back_of_card)
     # check_button.after_cancel(timer)
     # window.after_cancel(timer)
+    
 
     
     
@@ -38,13 +43,18 @@ def back_of_card():
     canvas.itemconfig(card_image, image= card_back)
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
-    timer
+    
 
 
 
 # ------------------- New Word Functions ----------------- #
 
-
+def remove_card():
+    global df, current_card
+    # print(current_card)
+    df.remove(current_card)
+    words_to_learn = pd.DataFrame(df)
+    words_to_learn.to_csv('words_to_learn.csv', index=False)
 
 
 
@@ -100,7 +110,7 @@ check_button = Button( image=check_image
                       , highlightthickness=0
                       , pady=50
                       , bd=0
-                      , command= next_card)
+                      , command= lambda: [remove_card(),next_card()])
 # check_button.image = check_image
 check_button.grid(row=1, column=1)
 # cross_button.place(x=700, y=500)
