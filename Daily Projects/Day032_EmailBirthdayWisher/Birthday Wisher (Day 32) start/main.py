@@ -33,6 +33,6 @@ for row in birthdays:
             connection.login(user=my_email, password= password)
             connection.sendmail(
                 from_addr=my_email,
-                to_addrs=test_email,
+                to_addrs=row['email'],
                 msg = f"Subject:Happy Birthday!\n\n{letter}"
             )
