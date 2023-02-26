@@ -1,27 +1,61 @@
 import requests
-import datetime
+from datetime import datetime
+import smtplib
+import yaml
 
-# Calling a basic API
-response = requests.get(url="http://api.open-notify.org/iss-now.json")
+MY_LAT = 38.635360  # Your latitude
+MY_LONG = -90.200990  # Your longitude
 
-# Check for 200 status. If any issues arise, raise_for_status() will handle it
-if not response.raise_for_status():
+
+def iss_in_position():
+    response = requests.get(url="http://api.open-notify.org/iss-now.json")
+    response.raise_for_status()
     data = response.json()
-    longitude = data['iss_position']['longitude']
-    latitude = data['iss_position']['latitude']
-    print(longitude, latitude)
 
-# Sending API with parameters
-response = requests.get(f"https://api.sunrise-sunset.org/json?lat={latitude}&lng={longitude}&formatted=0")
-if not response.raise_for_status():
+    iss_latitude = float(data["iss_position"]["latitude"])
+    iss_longitude = float(data["iss_position"]["longitude"])
+    return MY_LONG - 5 <= iss_longitude <= MY_LONG + 5 and MY_LAT - 5 <= iss_latitude <= iss_latitude
+
+
+# Your position is within +5 or -5 degrees of the ISS position.
+
+def is_night():
+    parameters = {
+        "lat": MY_LAT,
+        "lng": MY_LONG,
+        "formatted": 0,
+    }
+
+    response = requests.get("https://api.sunrise-sunset.org/json", params=parameters)
+    response.raise_for_status()
     data = response.json()
-    sunrise = data['results']['sunrise'].split("T")[1].split(":")[0]
-    sunset = data['results']['sunset'].split("T")[1].split(":")[0]
-    print(sunrise, sunset)
+    sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
+    sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
 
-time_now = datetime.datetime.now().hour
+    time_now = datetime.now().hour
 
-print(time_now)
+    # If the ISS is close to my current position
+    # and it is currently dark
+    # Then send me an email to tell me to look up.
+    # BONUS: run the code every 60 seconds.
+
+    return time_now >= sunset or time_now <= sunrise
 
 
+if iss_in_position() and is_night():
+    with open('config.yml', 'r') as f:
+        cfg = yaml.safe_load(f)
 
+    my_email = "derbaktest@gmail.com"
+    password = cfg['email']['password'][1]
+    test_email = "derbaktest@yahoo.com"
+
+    with smtplib.SMTP("smtp.gmail.com") as connection:  # create an SMTP object
+        # smtp.mail.yahoo.com
+        connection.starttls()  # Start secure encryption
+        connection.login(user=my_email, password=password)
+        connection.sendmail(
+            from_addr=my_email,
+            to_addrs=test_email,
+            msg=f"Subject:ISS is close!\n\nThe ISS is now flying overhead! You should be able to see it with your telescope!"
+        )
