@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import smtplib
 import yaml
+import time
 
 MY_LAT = 38.635360  # Your latitude
 MY_LONG = -90.200990  # Your longitude
@@ -41,21 +42,25 @@ def is_night():
 
     return time_now >= sunset or time_now <= sunrise
 
+searching = True
 
-if iss_in_position() and is_night():
-    with open('config.yml', 'r') as f:
-        cfg = yaml.safe_load(f)
+while searching:
+    time.sleep(3000)
+    if iss_in_position() and is_night():
+        with open('config.yml', 'r') as f:
+            cfg = yaml.safe_load(f)
 
-    my_email = "derbaktest@gmail.com"
-    password = cfg['email']['password'][1]
-    test_email = "derbaktest@yahoo.com"
+        my_email = "derbaktest@gmail.com"
+        password = cfg['email']['password'][1]
+        test_email = "andrewderbak@gmail.com"
 
-    with smtplib.SMTP("smtp.gmail.com") as connection:  # create an SMTP object
-        # smtp.mail.yahoo.com
-        connection.starttls()  # Start secure encryption
-        connection.login(user=my_email, password=password)
-        connection.sendmail(
-            from_addr=my_email,
-            to_addrs=test_email,
-            msg=f"Subject:ISS is close!\n\nThe ISS is now flying overhead! You should be able to see it with your telescope!"
-        )
+        with smtplib.SMTP("smtp.gmail.com") as connection:  # create an SMTP object
+            # smtp.mail.yahoo.com
+            connection.starttls()  # Start secure encryption
+            connection.login(user=my_email, password=password)
+            connection.sendmail(
+                from_addr=my_email,
+                to_addrs=test_email,
+                msg=f"Subject:ISS is close!\n\nThe ISS is now flying overhead! You should be able to see it with your telescope!"
+            )
+        searching = False
