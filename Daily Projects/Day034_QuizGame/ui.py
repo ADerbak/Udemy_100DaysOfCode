@@ -14,11 +14,13 @@ class QuizInterface:
         self.window = Tk()
         self.window.title("Quizzler")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
+        self.answer = False
         self.score = 0
+        
         
         # ------------------- Score ----------------- #
         
-        self.score_label = Label(text="Score: 0"
+        self.score_label = Label(text=f"Score: {self.score}"
                                  ,fg="white"
                                  , bg=THEME_COLOR
                                  ,highlightbackground=None)
@@ -46,18 +48,21 @@ class QuizInterface:
         self.cross_button = Button(image=cross_image
                             , highlightthickness=0
                             , pady=50
-                            , bd=0)
+                            , bd=0
+                            , command=self.false_pressed)
         self.cross_button.grid(row=2, column=1)
 
         check_image = PhotoImage(file = './images/true.png')
         self.check_button = Button( image=check_image
                             , highlightthickness=0
                             , pady=50
-                            , bd=0)
+                            , bd=0
+                            , command=self.true_pressed)
                             
         self.check_button.grid(row=2, column=0)
         
         self.get_next_question()
+        
         
     
         self.window.mainloop()
@@ -65,6 +70,30 @@ class QuizInterface:
         
         
     def get_next_question(self):
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        self.canvas.config(bg="white")
+        if self.quiz.still_has_questions():
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+            self.score_label.config(text=f"Score: {self.score}")
+        else:
+            self.canvas.itemconfig(self.question_text, text="You've reached the end of the quiz!")
+            self.check_button.config(state="disabled")
+            self.cross_button.config(state="disabled")
+    
+    def true_pressed(self):
+        self.give_feedback(self.quiz.check_answer(True))
+        
+    
+    def false_pressed(self):
+        self.give_feedback(self.quiz.check_answer(False))
+    
+    def give_feedback(self, answer):
+        if answer:
+            self.score += 1
+            self.canvas.config(bg="green")
+        else: 
+            self.canvas.config(bg="red")
+            
+        self.window.after(2000, self.get_next_question)
+        
         
