@@ -1,6 +1,8 @@
 import requests as requests
+import os
+from twilio.rest import Client
 
-from secrets import app_id, lat, long
+from secrets import app_id, lat, long, account_sid, auth_token
 
 # api = f"https://api.openweathermap.org/data/3.0/onecall"
 api = f"https://api.openweathermap.org/data/2.5/weather"
@@ -27,6 +29,17 @@ weather_data = response.json()
 #         break
 
 # Creating the same for the available API call
-if int(weather_data["weather"][0]["id"]) < 700:
+if int(weather_data["weather"][0]["id"]) < 900:
     print("Bring an umbrella!")
+    # account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    # auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    client = Client(account_sid, auth_token)
+
+    message = client.messages \
+        .create(
+        body="It's going to rain today! Bring an ☔️",
+        from_='+18339878049',
+        to='+13145757071'
+    )
+    print(message.status)
 
