@@ -11,5 +11,22 @@ user_params = {
     "notMinor": "yes"
 }
 
-response = requests.post(pixela_endpoint, json=user_params)
+# response = requests.post(pixela_endpoint, json=user_params)
+# print(response.text)
+# {"message":"Success. Let's visit https://pixe.la/@aderbak , it is your profile page!","isSuccess":true}
+
+pixela_graph_endpoint = f"{pixela_endpoint}/{secrets.pixela_username}/graphs"
+
+graph_config = {
+    "id": "reading",
+    "name" : "Pages Read Tracker",
+    "unit" : "Pages",
+    "type" : "int",
+    "color": "ajisai"
+}
+
+pixela_header = {"X-USER-TOKEN": secrets.pixela_token}
+
+response = requests.post(pixela_graph_endpoint, json=graph_config, headers=pixela_header)
 print(response.text)
+# {"message":"Success.","isSuccess":true}
