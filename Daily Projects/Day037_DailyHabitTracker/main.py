@@ -37,12 +37,22 @@ pixela_header = {"X-USER-TOKEN": secrets.pixela_token}
 pixela_value_endpoint = f"{pixela_graph_endpoint}/reading"
 
 value_config = {
-    "date": "20231126",
+    "date": "20231125",
     "quantity": "40",
-    "optionalData": {"Books": "Moonwalking with Einstein; A Very Punchable face"}
+    "optionalData": "{\"Books\": \"Moonwalking with Einstein\"}"
 }
 
-print(pixela_value_endpoint)
+# response = requests.post(pixela_value_endpoint, json=value_config, headers=pixela_header)
+# print(response.text)
 
-response = requests.post(pixela_value_endpoint, json=value_config, headers=pixela_header)
-print(response)
+# Update a value
+
+pixela_value_endpoint_update = f"{pixela_value_endpoint}/20231125"
+
+updated_value_config = {
+    "quantity": "100",
+    "optionalData": "{\"Books\": \"Moonwalking with Einstein\"}"
+}
+
+response = requests.put(pixela_value_endpoint_update, json=updated_value_config, headers=pixela_header)
+print(response.text)
