@@ -54,5 +54,10 @@ updated_value_config = {
     "optionalData": "{\"Books\": \"Moonwalking with Einstein\"}"
 }
 
-response = requests.put(pixela_value_endpoint_update, json=updated_value_config, headers=pixela_header)
+# response = requests.put(pixela_value_endpoint_update, json=updated_value_config, headers=pixela_header)
+# print(response.text)
+
+
+# Delete a pixel!
+response = requests.delete(pixela_value_endpoint_update, headers=pixela_header)
 print(response.text)
